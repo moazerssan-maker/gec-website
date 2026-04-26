@@ -1,0 +1,23 @@
+# Build & dependencies
+node_modules/
+package-lock.json
+package.json
+
+# Local backup
+_backup_originals/
+
+# Local scripts
+_compress.js
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Worktrees / temp / Claude Code config
+.claude/
