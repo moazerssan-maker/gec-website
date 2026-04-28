@@ -21,3 +21,6 @@ desktop.ini
 
 # Worktrees / temp / Claude Code config
 .claude/
+
+# PPTX exports (local working files)
+*.pptx
