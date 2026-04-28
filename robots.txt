@@ -1,0 +1,16 @@
+# robots.txt for geckuw.com
+# Green Environment Consultancy
+
+User-agent: *
+Allow: /
+
+# Block crawling of system/build files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.claude/
+Disallow: /*.pptx$
+Disallow: /_*.js
+Disallow: /_*.html
+
+# Sitemap location
+Sitemap: https://geckuw.com/sitemap.xml
