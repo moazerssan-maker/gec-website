@@ -1,0 +1,26 @@
+{
+  "name": "Green Environment Consultancy",
+  "short_name": "GEC",
+  "description": "Kuwait's KEPA Grade (A) certified environmental consulting firm. EIA, HSE, LEED, ESG services with 350+ approved projects.",
+  "icons": [
+    {
+      "src": "/favicons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#1B5E20",
+  "background_color": "#FAFAF7",
+  "display": "browser",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr"
+}
