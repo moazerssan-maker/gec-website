@@ -110,7 +110,7 @@
   <!-- Contact -->
   <url>
     <loc>https://geckuw.com/ar/contact.html</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/contact.html"/>
@@ -118,11 +118,53 @@
   </url>
   <url>
     <loc>https://geckuw.com/en/contact.html</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://geckuw.com/en/contact.html"/>
+  </url>
+
+  <!-- ============ LIBRARY (المكتبة البيئية) ============ -->
+
+  <!-- Library Hub -->
+  <url>
+    <loc>https://geckuw.com/ar/library/index.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/library/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://geckuw.com/en/library/index.html"/>
+  </url>
+
+  <!-- Environmental Protection Law -->
+  <url>
+    <loc>https://geckuw.com/ar/library/environmental-protection-law.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/library/environmental-protection-law.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://geckuw.com/en/library/environmental-protection-law.html"/>
+  </url>
+
+  <!-- Executive Regulation -->
+  <url>
+    <loc>https://geckuw.com/ar/library/executive-regulation.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/library/executive-regulation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://geckuw.com/en/library/executive-regulation.html"/>
+  </url>
+
+  <!-- Activity Zoning -->
+  <url>
+    <loc>https://geckuw.com/ar/library/activity-zoning.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/library/activity-zoning.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://geckuw.com/en/library/activity-zoning.html"/>
   </url>
 
 </urlset>
