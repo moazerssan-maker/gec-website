@@ -2114,6 +2114,7 @@ body[dir="rtl"] .stats-bar__item:last-child { border-left: none; }
       <li><a href="services.html" class="nav__link">Services</a></li>
       <li><a href="projects.html" class="nav__link">Projects</a></li>
       <li><a href="governance.html" class="nav__link">Governance</a></li>
+      <li><a href="library/index.html" class="nav__link">Library</a></li>
       <li><a href="contact.html" class="nav__link">Contact</a></li>
     </ul>
 
@@ -2137,6 +2138,7 @@ body[dir="rtl"] .stats-bar__item:last-child { border-left: none; }
       <a href="services.html" class="nav__mobile-link">Services</a>
       <a href="projects.html" class="nav__mobile-link">Projects</a>
       <a href="governance.html" class="nav__mobile-link">Governance</a>
+      <a href="library/index.html" class="nav__mobile-link">Library</a>
       <a href="contact.html" class="nav__mobile-link">Contact</a>
       <a href="../ar/index.html" class="nav__mobile-lang">العربية</a>
       <a href="contact.html" class="nav__mobile-cta">Start Your Project</a>
@@ -2250,6 +2252,200 @@ body[dir="rtl"] .stats-bar__item:last-child { border-left: none; }
     </div>
   </div>
 </section>
+
+<!-- ============ LIBRARY BANNER ============ -->
+<section class="library-banner">
+  <div class="container">
+    <div class="library-banner__inner">
+
+      <div class="library-banner__content">
+        <span class="library-banner__eyebrow">📚 FREE ENVIRONMENTAL LIBRARY</span>
+        <h2 class="library-banner__title">Know Before You Invest</h2>
+        <p class="library-banner__lead">
+          Your complete reference to Kuwait's Environmental Protection Law,
+          Executive Regulations, and Industrial Zoning — clearly organized and
+          simplified by GEC's environmental experts.
+        </p>
+
+        <div class="library-banner__stats">
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">42/2014</span>
+            <span class="library-banner__stat-label">EPA Law</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">17</span>
+            <span class="library-banner__stat-label">Executive Regulations</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">11+</span>
+            <span class="library-banner__stat-label">Industrial Zones</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">100%</span>
+            <span class="library-banner__stat-label">Free Access</span>
+          </div>
+        </div>
+
+        <a href="library/index.html" class="library-banner__cta">
+          Explore the Library
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px; height:18px;">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <p class="library-banner__sub">
+          ⚠️ Avoid costly environmental mistakes — read the law before signing any contract
+        </p>
+      </div>
+
+      <div class="library-banner__visual" aria-hidden="true">
+        <div class="library-banner__books">
+          <div class="library-banner__book library-banner__book--1">📜</div>
+          <div class="library-banner__book library-banner__book--2">📋</div>
+          <div class="library-banner__book library-banner__book--3">🏭</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.library-banner {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76,175,80,.22) 0%, transparent 55%),
+    linear-gradient(135deg, #1B5E20 0%, #143D17 100%);
+  padding: 5rem 0;
+  overflow: hidden;
+}
+.library-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0, transparent 80px, rgba(255,255,255,0.04) 80px, rgba(255,255,255,0.04) 82px);
+  pointer-events: none;
+}
+.library-banner * { color: #fff; }
+.library-banner__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 968px) { .library-banner__inner { grid-template-columns: 1fr; } }
+
+.library-banner__eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  background: rgba(255,255,255,0.14);
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff !important;
+}
+.library-banner__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  color: #fff !important;
+}
+.library-banner__lead {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  margin-bottom: 2rem;
+  max-width: 640px;
+  color: rgba(255,255,255,0.96) !important;
+  font-weight: 400;
+}
+.library-banner__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+}
+@media (max-width: 640px) { .library-banner__stats { grid-template-columns: repeat(2, 1fr); } }
+.library-banner__stat { display: flex; flex-direction: column; gap: 0.3rem; }
+.library-banner__stat-num {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #B8E0B5 !important;
+  line-height: 1;
+}
+.library-banner__stat-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.92) !important;
+  font-weight: 500;
+}
+.library-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #fff;
+  color: #1B5E20 !important;
+  padding: 1rem 2.2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all .25s ease;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.3);
+}
+.library-banner__cta:hover {
+  background: #FAFAF7;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  color: #143D17 !important;
+}
+.library-banner__cta svg { color: #1B5E20 !important; }
+.library-banner__sub {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #FFD180 !important;
+  font-weight: 600;
+}
+.library-banner__visual {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 968px) { .library-banner__visual { display: none; } }
+.library-banner__books { position: relative; width: 280px; height: 280px; }
+.library-banner__book {
+  position: absolute;
+  width: 130px;
+  height: 170px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.3);
+  animation: lib-float 6s ease-in-out infinite;
+}
+.library-banner__book--1 { top: 20px; left: 20px; --rot: -8deg; transform: rotate(-8deg); animation-delay: 0s; }
+.library-banner__book--2 { top: 60px; left: 75px; --rot: 2deg; transform: rotate(2deg); background: rgba(255,255,255,0.14); z-index: 2; animation-delay: 1.5s; }
+.library-banner__book--3 { top: 100px; left: 130px; --rot: 10deg; transform: rotate(10deg); animation-delay: 3s; }
+@keyframes lib-float {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+</style>
 
 <!-- ============ SERVICES (8 cards with ESG + LEED) ============ -->
 <section class="section">
