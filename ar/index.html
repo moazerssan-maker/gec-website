@@ -2582,6 +2582,237 @@ body[dir="rtl"] .clients-intro {
   </div>
 </section>
 
+<!-- ============ LIBRARY BANNER (NEW) ============ -->
+<section class="library-banner">
+  <div class="container">
+    <div class="library-banner__inner">
+
+      <!-- Left content -->
+      <div class="library-banner__content">
+        <span class="library-banner__eyebrow">📚 المكتبة البيئية المجانية</span>
+        <h2 class="library-banner__title">اعرف قبل أن تستثمر</h2>
+        <p class="library-banner__lead">
+          مرجعك الكامل لقوانين البيئة الكويتية، اللوائح التنفيذية، وأماكن
+          تخصيص الأنشطة الصناعية — مرتّب ومبسّط من خبراء البيئة الخضراء.
+        </p>
+
+        <!-- Mini stats -->
+        <div class="library-banner__stats">
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">42/2014</span>
+            <span class="library-banner__stat-label">قانون حماية البيئة</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">17</span>
+            <span class="library-banner__stat-label">لائحة تنفيذية</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">+11</span>
+            <span class="library-banner__stat-label">منطقة صناعية</span>
+          </div>
+          <div class="library-banner__stat">
+            <span class="library-banner__stat-num">100%</span>
+            <span class="library-banner__stat-label">مجاناً</span>
+          </div>
+        </div>
+
+        <a href="library/index.html" class="library-banner__cta">
+          استكشف المكتبة الآن
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px; height:18px; transform: scaleX(-1);">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <p class="library-banner__sub">
+          ⚠️ تجنب الأخطاء البيئية المكلفة — اقرأ القانون قبل توقيع أي عقد
+        </p>
+      </div>
+
+      <!-- Right visual -->
+      <div class="library-banner__visual">
+        <div class="library-banner__books">
+          <div class="library-banner__book library-banner__book--1">📜</div>
+          <div class="library-banner__book library-banner__book--2">📋</div>
+          <div class="library-banner__book library-banner__book--3">🏭</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.library-banner {
+  position: relative;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(76,175,80,.18) 0%, transparent 50%),
+    linear-gradient(135deg, #1B5E20 0%, #143D17 100%);
+  color: #fff;
+  padding: 5rem 0;
+  overflow: hidden;
+  margin: 4rem 0;
+}
+.library-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0, transparent 80px, rgba(255,255,255,0.03) 80px, rgba(255,255,255,0.03) 82px);
+  pointer-events: none;
+}
+.library-banner__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 968px) {
+  .library-banner__inner { grid-template-columns: 1fr; }
+}
+
+.library-banner__eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: rgba(255,255,255,0.12);
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.library-banner__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.library-banner__lead {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  opacity: 0.92;
+  margin-bottom: 2rem;
+  max-width: 640px;
+}
+
+.library-banner__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+@media (max-width: 640px) {
+  .library-banner__stats { grid-template-columns: repeat(2, 1fr); }
+}
+.library-banner__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.library-banner__stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #A9D7A6;
+  line-height: 1;
+}
+.library-banner__stat-label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.library-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #fff;
+  color: #1B5E20;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: all .25s ease;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+.library-banner__cta:hover {
+  background: #FAFAF7;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.35);
+  color: #143D17;
+}
+.library-banner__sub {
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  opacity: 0.82;
+  font-style: italic;
+}
+
+/* Right visual — floating books */
+.library-banner__visual {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 968px) {
+  .library-banner__visual { display: none; }
+}
+.library-banner__books {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+.library-banner__book {
+  position: absolute;
+  width: 130px;
+  height: 170px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+  animation: lib-float 6s ease-in-out infinite;
+}
+.library-banner__book--1 {
+  top: 20px;
+  right: 20px;
+  transform: rotate(-8deg);
+  animation-delay: 0s;
+}
+.library-banner__book--2 {
+  top: 60px;
+  right: 75px;
+  transform: rotate(2deg);
+  background: rgba(255,255,255,0.12);
+  z-index: 2;
+  animation-delay: 1.5s;
+}
+.library-banner__book--3 {
+  top: 100px;
+  right: 130px;
+  transform: rotate(10deg);
+  animation-delay: 3s;
+}
+@keyframes lib-float {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+.library-banner__book--1 { --rot: -8deg; }
+.library-banner__book--2 { --rot: 2deg; }
+.library-banner__book--3 { --rot: 10deg; }
+</style>
+
 <!-- ============ CLIENTS ============ -->
 <section class="section">
   <div class="container">
