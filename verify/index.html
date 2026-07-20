@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التحقق من الشهادات · Certificate Verification — GEC</title>
+
+  <!-- Redirect page: forward to Arabic version, preserving ?id= from QR codes -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://geckuw.com/ar/verify.html">
+  <link rel="alternate" hreflang="ar" href="https://geckuw.com/ar/verify.html">
+  <link rel="alternate" hreflang="en" href="https://geckuw.com/en/verify.html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png?v=3">
+  <meta name="theme-color" content="#1B5E20">
+
+  <script>
+    /* يحوّل تلقائياً للنسخة العربية مع الحفاظ على رقم الشهادة (?id=...) */
+    (function () {
+      window.location.replace('/ar/verify.html' + window.location.search);
+    })();
+  </script>
+  <style>
+    body {
+      font-family: 'Tajawal', 'Inter', -apple-system, sans-serif;
+      background: #FAFAF7;
+      color: #1A1A18;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    a { color: #1B5E20; text-decoration: none; margin: 0 1em; font-weight: 600; }
+    a:hover { color: #143D17; }
+  </style>
+</head>
+<body>
+  <div>
+    <p style="opacity: 0.7; font-size: 14px; letter-spacing: 0.2em;">جارٍ التحميل · LOADING</p>
+    <p>
+      <a href="/ar/verify.html">العربية</a> ·
+      <a href="/en/verify.html">English</a>
+    </p>
+  </div>
+</body>
+</html>
