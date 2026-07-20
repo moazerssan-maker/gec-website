@@ -15,7 +15,7 @@ window.GEC_EVENTS = {
       title:  "مدخل في علم الاستدامة وتطبيقاتها لرؤية كويت 2035",
       date:   "14 – 15 يوليو 2026",
       venue:  "مبنى الهيئة العامة للبيئة – الشويخ",
-      hours:  "أربع ساعات تدريبية",
+      hours:  "أربع ساعات",
       issued: "يوليو 2026"
     },
     en: {
@@ -23,7 +23,7 @@ window.GEC_EVENTS = {
       title:  "Introduction to Sustainability Science & its Applications for Kuwait Vision 2035",
       date:   "14 – 15 July 2026",
       venue:  "Kuwait EPA Building – Shuwaikh",
-      hours:  "Four training hours",
+      hours:  "Four hours",
       issued: "July 2026"
     }
   }
