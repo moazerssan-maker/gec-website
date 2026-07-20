@@ -289,24 +289,33 @@ function verify() {
     return;
   }
 
-  const certs  = (window.GEC_CERTIFICATES || []).map(norm);
-  const events = window.GEC_EVENTS || {};
+  const registry = window.GEC_CERTIFICATES || {};
+  const events   = window.GEC_EVENTS || {};
 
-  if (certs.includes(id)) {
+  /* Look up the certificate in the registry (normalized keys) */
+  let cert = null;
+  for (const key in registry) {
+    if (norm(key) === id) { cert = registry[key] || {}; break; }
+  }
+
+  if (cert) {
     const evData = events[id.split("-")[1]];
     const ev = evData && evData.en;
-    let rows = "";
+    const holder = cert.nameEn || cert.name || "";
+    let rows = '<table>';
+    if (holder) {
+      rows += '<tr><td class="k">Participant Name</td><td class="v">' + holder + '</td></tr>';
+    }
     if (ev) {
-      rows = '<table>'
-        + '<tr><td class="k">Event Type</td><td class="v">'   + ev.type   + '</td></tr>'
+      rows += '<tr><td class="k">Event Type</td><td class="v">'   + ev.type   + '</td></tr>'
         + '<tr><td class="k">Title</td><td class="v">'         + ev.title  + '</td></tr>'
         + '<tr><td class="k">Date</td><td class="v">'          + ev.date   + '</td></tr>'
         + '<tr><td class="k">Venue</td><td class="v">'         + ev.venue  + '</td></tr>'
         + '<tr><td class="k">Training Hours</td><td class="v">'+ ev.hours  + '</td></tr>'
-        + '<tr><td class="k">Issue Date</td><td class="v">'    + ev.issued + '</td></tr>'
-        + '<tr><td class="k">Certificate No.</td><td class="v mono">' + id + '</td></tr>'
-        + '</table>';
+        + '<tr><td class="k">Issue Date</td><td class="v">'    + ev.issued + '</td></tr>';
     }
+    rows += '<tr><td class="k">Certificate No.</td><td class="v mono">' + id + '</td></tr>'
+      + '</table>';
     box.classList.add("valid");
     box.innerHTML = '<div class="status"><span class="badge">&#10003;</span>Valid certificate — officially issued by GEC</div>' + rows;
     if (typeof gtag === 'function') gtag('event', 'certificate_verify', { event_category: 'Verify', event_label: id, verify_result: 'valid' });
