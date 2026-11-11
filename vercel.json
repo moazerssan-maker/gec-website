@@ -1,4 +1,7 @@
 {
+  "regions": [
+    "fra1"
+  ],
   "redirects": [
     {
       "source": "/crm",
@@ -9,7 +12,7 @@
   "rewrites": [
     {
       "source": "/crm/api/:path*",
-      "destination": "https://industrial-directory-tracker.vercel.app/api/:path*"
+      "destination": "/api/crm/:path*"
     }
   ]
 }

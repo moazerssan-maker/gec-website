@@ -1,7 +1,5 @@
 # Build & dependencies
 node_modules/
-package-lock.json
-package.json
 
 # Local backup
 _backup_originals/
