@@ -4,10 +4,12 @@
 // no invented legal article numbers.
 
 export const SENDER = {
-  company: "Green Environment Consultancy (GEC)",
-  tel: "22245887 / 92232178",
+  company: "شركة البيئة الخضراء للاستشارات والمختبرات البيئية",
+  companyEn: "Green Environment Consultancy (GEC)",
+  tel: "22245887",
+  whatsapp: "92232178",
   email: "info@envo-green.com",
-  web: "envo-green.com",
+  web: "geckuw.com",
   address: "مدينة الكويت، المرقاب، شارع خالد بن الوليد، برج مزايا 1، الدور 15",
 };
 
@@ -35,7 +37,8 @@ function signature(senderName) {
     "مع خالص التحية،",
     senderName || "",
     SENDER.company,
-    `هاتف: ${SENDER.tel}`,
+    SENDER.companyEn,
+    `هاتف: ${SENDER.tel} · واتساب: ${SENDER.whatsapp}`,
     `${SENDER.email} · ${SENDER.web}`,
     SENDER.address,
   ].filter(Boolean).join("\n");
@@ -84,7 +87,7 @@ export function buildEmail(lead, track, step, senderName) {
     };
   }
 
-  const intro = `أتواصل معكم من ${SENDER.company}، مكتب استشارات بيئية في الكويت يعمل مع المصانع على متطلبات الهيئة العامة للبيئة.`;
+  const intro = `أتواصل معكم من ${SENDER.company} (GEC)، مكتب بيئي معتمد من الهيئة العامة للبيئة بدرجة (أ)، نعمل مع المصانع في الكويت على متطلبات الهيئة.`;
   let middle;
   if (t === "heavy") {
     middle = [

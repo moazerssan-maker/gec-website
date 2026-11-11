@@ -90,7 +90,8 @@ function authScreen(kind, msg = "") {
   $("#appRoot").hidden = true;
   const setup = kind === "setup";
   $("#authRoot").innerHTML = `<div class="auth"><form id="authForm" autocomplete="on">
-    <h1>تتبع منشآت الدليل الصناعي</h1>
+    <img class="logo" src="/gec-logo.png" alt="البيئة الخضراء">
+    <h1>دخول الموظفين</h1>
     <p>${setup ? "أول دخول: أنشئ حساب المدير. ستحتاج رمز الإعداد (SETUP_CODE) الموجود في إعدادات المشروع على Vercel." : "سجّل الدخول للمتابعة."}</p>
     ${setup ? `<label class="fld">رمز الإعداد<input id="aCode" required autocomplete="off"></label>
       <label class="fld">اسمك (يظهر في السجل وفي توقيع البريد)<input id="aName" required></label>` : ""}
@@ -98,6 +99,7 @@ function authScreen(kind, msg = "") {
     <label class="fld">كلمة المرور<input id="aPass" type="password" required autocomplete="${setup ? "new-password" : "current-password"}" minlength="${setup ? 8 : 1}" dir="ltr"></label>
     <div class="err" id="aErr">${esc(msg)}</div>
     <button class="btn primary" type="submit">${setup ? "إنشاء حساب المدير" : "دخول"}</button>
+    <a class="back" href="/ar/index.html">العودة إلى موقع البيئة الخضراء</a>
   </form></div>`;
   $("#authForm").onsubmit = async (e) => {
     e.preventDefault();
@@ -116,7 +118,7 @@ async function boot() {
   try { me = await api("api/auth"); }
   catch (e) {
     if (e.status === 401) return authScreen("login");
-    $("#authRoot").innerHTML = `<div class="auth"><form><h1>تتبع منشآت الدليل الصناعي</h1><p class="err">${esc(errText(e))}</p></form></div>`;
+    $("#authRoot").innerHTML = `<div class="auth"><form><img class="logo" src="/gec-logo.png" alt="البيئة الخضراء"><h1>دخول الموظفين</h1><p class="err">${esc(errText(e))}</p></form></div>`;
     return;
   }
   if (me.needsSetup) return authScreen("setup");
@@ -630,10 +632,10 @@ function whatsappMessage(l, t) {
   const prod = l.products[0] ? ` في ${l.products[0]}` : "";
   const area = l.areaAr ? ` في ${l.areaAr}` : "";
   const msg = `السلام عليكم ${who}،
-معكم Green Environment Consultancy (GEC) للاستشارات البيئية في الكويت. شكراً على وقتكم في الاتصال اليوم.
+معكم شركة البيئة الخضراء للاستشارات والمختبرات البيئية (GEC)، مكتب معتمد من الهيئة العامة للبيئة بدرجة (أ). شكراً على وقتكم في الاتصال اليوم.
 نساعد المصانع العاملة${prod} على استكمال متطلبات الهيئة العامة للبيئة: التصريح البيئي وتجديده، برامج الرصد البيئي (الهواء والضوضاء ومياه الصرف)، وخطط إدارة النفايات.
 يسعدنا ترتيب زيارة قصيرة لمصنعكم${area} لمراجعة وضع التصريح دون أي التزام.
-${S.me?.name || ""} · هاتف: 22245887 / 92232178 · envo-green.com`;
+${S.me?.name || ""} · هاتف: 22245887 · واتساب: 92232178 · geckuw.com`;
   return `<div style="margin-top:12px"><h3 style="font-size:13px;color:var(--muted)">رسالة جاهزة للواتساب</h3>
     <div data-copy-wrap><div class="msgbox" data-copy-src>${esc(msg)}</div>
     <div class="actions"><button class="btn small" type="button" data-copy="${esc(msg)}">نسخ الرسالة</button></div></div></div>`;
