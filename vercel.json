@@ -8,12 +8,8 @@
   ],
   "rewrites": [
     {
-      "source": "/crm/",
-      "destination": "https://industrial-directory-tracker.vercel.app/index.html"
-    },
-    {
-      "source": "/crm/:path*",
-      "destination": "https://industrial-directory-tracker.vercel.app/:path*"
+      "source": "/crm/api/:path*",
+      "destination": "https://industrial-directory-tracker.vercel.app/api/:path*"
     }
   ]
 }
