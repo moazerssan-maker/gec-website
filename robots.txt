@@ -11,6 +11,7 @@ Disallow: /.claude/
 Disallow: /*.pptx$
 Disallow: /_*.js
 Disallow: /_*.html
+Disallow: /crm/
 
 # Sitemap location
 Sitemap: https://geckuw.com/sitemap.xml

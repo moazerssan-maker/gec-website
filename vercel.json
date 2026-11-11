@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/crm",
+      "destination": "/crm/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/crm/:path*",
+      "destination": "https://industrial-directory-tracker.vercel.app/:path*"
+    }
+  ]
+}
