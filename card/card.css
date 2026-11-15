@@ -153,6 +153,11 @@ img{max-width:100%}
   .brand-mini{display:none}
 }
 
+@media (max-width:340px){
+  .actions button{font-size:12px;gap:6px;padding:11px 6px}
+  .actions button svg{width:15px;height:15px}
+}
+
 @media print{
   body{background:#fff}
   body::before,body::after{display:none}
