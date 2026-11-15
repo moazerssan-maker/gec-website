@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>بطاقات الموظفين · البيئة الخضراء</title>
+<script>
+  // Same rule as /crm/: preview deployments send staff to the live site.
+  if (/\.vercel\.app$/.test(location.hostname)) location.replace("https://geckuw.com/crm/cards/" + location.search + location.hash);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png?v=3">
+<meta name="theme-color" content="#1B5E20">
+</head>
+<body>
+<div id="authRoot"></div>
+
+<div id="appRoot" hidden>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/crm/cards/"><img src="/gec-logo.png" alt="البيئة الخضراء" width="58" height="40"><span><b>البيئة الخضراء</b><small>بطاقات الموظفين</small></span></a>
+      <nav class="tabs" aria-label="الأقسام">
+        <a href="/crm/#home">القطاعات</a>
+        <a href="/crm/#today">مواعيد اليوم</a>
+        <a href="/crm/cards/" aria-current="page">بطاقات الموظفين</a>
+      </nav>
+      <div class="hdr-actions">
+        <a class="btn small" href="/crm/">متابعة المنشآت</a>
+        <div class="usermenu">
+          <button class="btn small" id="userBtn" type="button" aria-haspopup="true" aria-expanded="false"><span id="userName"></span> ▾</button>
+          <div class="menu" id="userMenu" hidden>
+            <small id="userRole"></small>
+            <a href="/crm/#account">تغيير كلمة المرور</a>
+            <button type="button" id="logoutBtn">تسجيل الخروج</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="view">
+    <div class="page-head">
+      <div>
+        <h1>بطاقات الموظفين</h1>
+        <p class="muted">أضف بيانات كل موظف، اختر ما يظهر منها، وأصدر بطاقة برمز QR تفتح بطاقته الرقمية.</p>
+      </div>
+      <button class="btn primary" id="addBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        موظف جديد
+      </button>
+    </div>
+
+    <section class="stats" aria-label="ملخص البطاقات">
+      <div class="stat"><span>إجمالي الموظفين</span><b class="num" id="statAll">0</b></div>
+      <div class="stat"><span>بطاقات ظاهرة</span><b class="num" id="statOn">0</b></div>
+      <div class="stat"><span>بطاقات مخفية</span><b class="num" id="statOff">0</b></div>
+    </section>
+
+    <div class="toolbar">
+      <form class="cards-search" id="searchForm" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="search" placeholder="ابحث بالاسم، الرقم الوظيفي، القسم…" autocomplete="off">
+      </form>
+      <div class="seg" role="group" aria-label="تصفية البطاقات">
+        <button type="button" data-filter="all" aria-pressed="true">الكل</button>
+        <button type="button" data-filter="on" aria-pressed="false">ظاهرة</button>
+        <button type="button" data-filter="off" aria-pressed="false">مخفية</button>
+      </div>
+    </div>
+
+    <div id="grid" class="cards-grid" aria-live="polite"><div class="loading">جاري تحميل البطاقات…</div></div>
+
+    <p class="foot-note">
+      رمز QR يفتح رابطاً ثابتاً للبطاقة على <b class="num">geckuw.com/card/</b>. إخفاء البطاقة يوقف الرابط فوراً دون حذف بيانات الموظف.
+    </p>
+  </main>
+</div>
+
+<div id="drawerRoot"></div>
+<div id="modalRoot"></div>
+<div id="toastRoot"></div>
+
+<script src="/vendor/qrcode.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

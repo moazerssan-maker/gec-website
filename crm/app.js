@@ -128,6 +128,10 @@ async function boot() {
   $("#userName").textContent = S.me.name;
   $("#userRole").textContent = `${S.me.username} · ${S.me.role === "admin" ? "مدير" : "موظف"}`;
   $("#menuUsers").hidden = S.me.role !== "admin";
+  const menuCards = $("#menuCards");
+  const navCards = $("#navCards");
+  if (menuCards) menuCards.hidden = S.me.role !== "admin";
+  if (navCards) navCards.hidden = S.me.role !== "admin";
   try {
     const d = await api("api/data?part=leads");
     S.sectors = d.sectors; S.leads = d.leads; S.sectorBy = {}; S.byId = new Map();

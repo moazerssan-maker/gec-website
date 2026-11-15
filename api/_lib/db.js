@@ -79,6 +79,32 @@ export function ensureSchema() {
           data jsonb not null,
           updated_at timestamptz not null default now()
         )`;
+      // Employee ID cards. Public cards are read by api/card.js; the staff page
+      // at /crm/cards/ manages them through api/crm/employees.js.
+      await s`
+        create table if not exists employees (
+          id serial primary key,
+          public_id text not null unique,
+          name_ar text not null,
+          name_en text not null default '',
+          title_ar text not null,
+          title_en text not null default '',
+          department text not null default '',
+          employee_no text not null unique,
+          phone text not null default '',
+          email text not null default '',
+          joined_on date,
+          photo text not null default '',
+          visible boolean not null default true,
+          show_phone boolean not null default true,
+          show_email boolean not null default true,
+          theme text not null default 'forest' check (theme in ('forest','noir')),
+          created_at timestamptz not null default now(),
+          updated_at timestamptz not null default now()
+        )`;
+      await s`create index if not exists employees_visible_idx on employees (visible, created_at)`;
+      // Same reason as users/tracking: keep the table closed to Supabase's anon API.
+      await s`alter table employees enable row level security`;
     })().catch((e) => { ready = null; throw e; });
   }
   return ready;
