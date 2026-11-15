@@ -43,10 +43,16 @@ export default handler(async (req, res) => {
         const [inserted] = await sql`
           insert into employees
             (public_id, name_ar, name_en, title_ar, title_en, department, employee_no,
-             phone, email, joined_on, photo, visible, show_phone, show_email, theme)
+             phone, whatsapp, email, website, location, map_url,
+             x_url, instagram_url, linkedin_url, snapchat_url, tiktok_url, facebook_url,
+             joined_on, photo, visible, show_phone, show_email, theme)
           values
             (${newPublicId()}, ${v.nameAr}, ${v.nameEn}, ${v.titleAr}, ${v.titleEn}, ${v.department},
-             ${v.employeeNo || pending}, ${v.phone}, ${v.email}, ${v.joinedOn || null}, ${v.photo ?? ""},
+             ${v.employeeNo || pending}, ${v.phone}, ${v.whatsapp ?? ""}, ${v.email},
+             ${v.website ?? ""}, ${v.location ?? ""}, ${v.mapUrl ?? ""},
+             ${v.xUrl ?? ""}, ${v.instagramUrl ?? ""}, ${v.linkedinUrl ?? ""},
+             ${v.snapchatUrl ?? ""}, ${v.tiktokUrl ?? ""}, ${v.facebookUrl ?? ""},
+             ${v.joinedOn || null}, ${v.photo ?? ""},
              ${v.visible ?? true}, ${v.showPhone ?? true}, ${v.showEmail ?? true}, ${v.theme ?? "forest"})
           returning *`;
         row = inserted;
@@ -78,7 +84,17 @@ export default handler(async (req, res) => {
           title_ar = ${v.titleAr}, title_en = ${v.titleEn},
           department = ${v.department},
           employee_no = coalesce(nullif(${v.employeeNo}, ''), employee_no),
-          phone = ${v.phone}, email = ${v.email},
+          phone = ${v.phone}, whatsapp = coalesce(${v.whatsapp ?? null}, whatsapp),
+          email = ${v.email},
+          website = coalesce(${v.website ?? null}, website),
+          location = coalesce(${v.location ?? null}, location),
+          map_url = coalesce(${v.mapUrl ?? null}, map_url),
+          x_url = coalesce(${v.xUrl ?? null}, x_url),
+          instagram_url = coalesce(${v.instagramUrl ?? null}, instagram_url),
+          linkedin_url = coalesce(${v.linkedinUrl ?? null}, linkedin_url),
+          snapchat_url = coalesce(${v.snapchatUrl ?? null}, snapchat_url),
+          tiktok_url = coalesce(${v.tiktokUrl ?? null}, tiktok_url),
+          facebook_url = coalesce(${v.facebookUrl ?? null}, facebook_url),
           joined_on = ${v.joinedOn || null}, photo = coalesce(${v.photo ?? null}, photo),
           visible = coalesce(${v.visible ?? null}, visible),
           show_phone = coalesce(${v.showPhone ?? null}, show_phone),

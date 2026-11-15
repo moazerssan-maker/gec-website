@@ -10,7 +10,16 @@ const ERR = {
   name_required: "اسم الموظف مطلوب (حرفان على الأقل).",
   title_required: "المسمى الوظيفي مطلوب (حرفان على الأقل).",
   bad_phone: "رقم الجوال غير صحيح. مثال: +965 9223 2178",
+  bad_whatsapp: "رقم واتساب غير صحيح. مثال: +965 9223 2178",
   bad_email: "البريد الإلكتروني غير صحيح.",
+  bad_website: "رابط الموقع الإلكتروني غير صحيح.",
+  bad_map: "رابط اللوكيشن غير صحيح.",
+  bad_x: "رابط حساب X غير صحيح. يمكنك كتابة @اسم_المستخدم فقط.",
+  bad_instagram: "رابط حساب إنستغرام غير صحيح. يمكنك كتابة @اسم_المستخدم فقط.",
+  bad_linkedin: "رابط حساب لينكدإن غير صحيح.",
+  bad_snapchat: "رابط حساب سناب شات غير صحيح. يمكنك كتابة @اسم_المستخدم فقط.",
+  bad_tiktok: "رابط حساب تيك توك غير صحيح. يمكنك كتابة @اسم_المستخدم فقط.",
+  bad_facebook: "رابط حساب فيسبوك غير صحيح.",
   bad_date: "تاريخ الانضمام غير صحيح.",
   bad_photo: "الصورة كبيرة أو بصيغة غير مدعومة. جرّب صورة أصغر.",
   bad_employee_no: "الرقم الوظيفي يقبل الأحرف الإنجليزية والأرقام فقط (بدون مسافات).",
@@ -171,7 +180,11 @@ function filtered() {
     if (S.filter === "on" && !e.visible) return false;
     if (S.filter === "off" && e.visible) return false;
     if (!q) return true;
-    return norm([e.nameAr, e.nameEn, e.employeeNo, e.department, e.titleAr, e.phone, e.email].join(" ")).includes(q);
+    return norm([
+      e.nameAr, e.nameEn, e.employeeNo, e.department, e.titleAr, e.phone, e.whatsapp,
+      e.email, e.website, e.location, e.xUrl, e.instagramUrl, e.linkedinUrl,
+      e.snapchatUrl, e.tiktokUrl, e.facebookUrl,
+    ].join(" ")).includes(q);
   });
 }
 
@@ -213,13 +226,13 @@ function tile(e) {
     : esc(initials(e.nameAr));
   return `<article class="emp ${e.visible ? "" : "is-off"}" data-id="${e.id}">
     <div class="mini theme-${esc(e.theme)}">
-      <div class="mini-top">
-        <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
-        <span class="mini-kind">بطاقة موظف<small>EMPLOYEE ID</small></span>
-      </div>
-      <div class="mini-body">
-        <div class="mini-photo">${photo}</div>
-        <div class="mini-id"><b>${esc(e.nameAr)}</b><small>${esc(e.titleAr)}</small><span class="mini-no">${esc(e.employeeNo)}</span></div>
+      <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
+      <div class="mini-photo">${photo}</div>
+      <b class="mini-name">${esc(e.nameAr)}</b>
+      <small class="mini-title">${esc(e.titleAr)}</small>
+      ${e.department ? `<span class="mini-dept">${esc(e.department)}</span>` : ""}
+      <div class="mini-foot">
+        <span class="mini-no">${esc(e.employeeNo)}</span>
         <div class="mini-qr" data-qr="${esc(e.publicId)}" aria-label="رمز QR للبطاقة"></div>
       </div>
     </div>
@@ -296,10 +309,13 @@ function openForm(employee = null) {
       <form id="empForm" novalidate>
         <div class="form-preview">
           <div class="mini theme-${esc(e.theme)}" id="formPreview">
-            <div class="mini-top"><span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span><span class="mini-kind">بطاقة موظف<small>EMPLOYEE ID</small></span></div>
-            <div class="mini-body">
-              <div class="mini-photo" data-pv="photo">${photo}</div>
-              <div class="mini-id"><b data-pv="name">${esc(e.nameAr || "اسم الموظف")}</b><small data-pv="title">${esc(e.titleAr || "المسمى الوظيفي")}</small><span class="mini-no" data-pv="no">${esc(e.employeeNo || "GEC-000")}</span></div>
+            <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
+            <div class="mini-photo" data-pv="photo">${photo}</div>
+            <b class="mini-name" data-pv="name">${esc(e.nameAr || "اسم الموظف")}</b>
+            <small class="mini-title" data-pv="title">${esc(e.titleAr || "المسمى الوظيفي")}</small>
+            <span class="mini-dept" data-pv="dept">${esc(e.department || "القسم / الإدارة")}</span>
+            <div class="mini-foot">
+              <span class="mini-no" data-pv="no">${esc(e.employeeNo || "GEC-000")}</span>
               <div class="mini-qr" aria-hidden="true"></div>
             </div>
           </div>
@@ -326,13 +342,30 @@ function openForm(employee = null) {
         </section>
 
         <section class="fset">
-          <h3>التواصل</h3>
+          <h3>التواصل والموقع</h3>
           <div class="fgrid">
             <label class="field"><span>رقم الجوال</span><input name="phone" type="tel" dir="ltr" maxlength="30" placeholder="+965 9223 2178" value="${esc(e.phone)}" autocomplete="off"></label>
+            <label class="field"><span>رقم واتساب</span><input name="whatsapp" type="tel" dir="ltr" maxlength="30" placeholder="اتركه فارغاً لاستخدام الجوال" value="${esc(e.whatsapp)}" autocomplete="off"></label>
             <label class="field"><span>البريد الإلكتروني</span><input name="email" type="email" dir="ltr" maxlength="120" value="${esc(e.email)}" autocomplete="off"></label>
+            <label class="field"><span>الموقع الإلكتروني</span><input name="website" type="url" dir="ltr" maxlength="500" placeholder="example.com" value="${esc(e.website)}" autocomplete="off"></label>
+            <label class="field full"><span>اللوكيشن / العنوان</span><input name="location" maxlength="140" placeholder="المرقاب، مدينة الكويت" value="${esc(e.location)}" autocomplete="off"></label>
+            <label class="field full"><span>رابط اللوكيشن على الخريطة</span><input name="mapUrl" type="url" dir="ltr" maxlength="500" placeholder="https://maps.app.goo.gl/..." value="${esc(e.mapUrl)}" autocomplete="off"><small>اتركه فارغاً ليُفتح اللوكيشن على خرائط Google تلقائياً.</small></label>
           </div>
-          <label class="switch"><input type="checkbox" name="showPhone" ${e.showPhone !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار رقم الجوال</b><small>يظهر كزر اتصال وواتساب داخل البطاقة.</small></span></label>
+          <label class="switch"><input type="checkbox" name="showPhone" ${e.showPhone !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار الجوال وواتساب</b><small>يظهران كأزرار اتصال وواتساب داخل البطاقة.</small></span></label>
           <label class="switch"><input type="checkbox" name="showEmail" ${e.showEmail !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار البريد الإلكتروني</b><small>يظهر كزر بريد داخل البطاقة.</small></span></label>
+        </section>
+
+        <section class="fset">
+          <h3>الحسابات وروابط التواصل</h3>
+          <div class="fgrid">
+            <label class="field"><span>X (تويتر)</span><input name="xUrl" dir="ltr" maxlength="500" placeholder="@username أو الرابط" value="${esc(e.xUrl)}" autocomplete="off"></label>
+            <label class="field"><span>إنستغرام</span><input name="instagramUrl" dir="ltr" maxlength="500" placeholder="@username أو الرابط" value="${esc(e.instagramUrl)}" autocomplete="off"></label>
+            <label class="field"><span>لينكدإن</span><input name="linkedinUrl" dir="ltr" maxlength="500" placeholder="اسم المستخدم أو الرابط" value="${esc(e.linkedinUrl)}" autocomplete="off"></label>
+            <label class="field"><span>سناب شات</span><input name="snapchatUrl" dir="ltr" maxlength="500" placeholder="@username أو الرابط" value="${esc(e.snapchatUrl)}" autocomplete="off"></label>
+            <label class="field"><span>تيك توك</span><input name="tiktokUrl" dir="ltr" maxlength="500" placeholder="@username أو الرابط" value="${esc(e.tiktokUrl)}" autocomplete="off"></label>
+            <label class="field"><span>فيسبوك</span><input name="facebookUrl" dir="ltr" maxlength="500" placeholder="اسم الصفحة أو الرابط" value="${esc(e.facebookUrl)}" autocomplete="off"></label>
+          </div>
+          <p class="hint">يمكنك كتابة اسم المستخدم فقط مثل @sara، أو لصق رابط الحساب الكامل.</p>
         </section>
 
         <section class="fset">
@@ -368,6 +401,7 @@ function openForm(employee = null) {
     preview.className = `mini theme-${fd.get("theme") === "noir" ? "noir" : "forest"}`;
     $('[data-pv="name"]', preview).textContent = String(fd.get("nameAr") || "").trim() || "اسم الموظف";
     $('[data-pv="title"]', preview).textContent = String(fd.get("titleAr") || "").trim() || "المسمى الوظيفي";
+    $('[data-pv="dept"]', preview).textContent = String(fd.get("department") || "").trim() || "القسم / الإدارة";
     $('[data-pv="no"]', preview).textContent = String(fd.get("employeeNo") || "").trim().toUpperCase() || "GEC-000";
     const pv = $('[data-pv="photo"]', preview);
     pv.innerHTML = S.photo ? `<img src="${esc(S.photo)}" alt="">` : esc(initials(fd.get("nameAr")) || "؟");
@@ -415,7 +449,17 @@ function openForm(employee = null) {
       department: String(fd.get("department") || "").trim(),
       employeeNo: String(fd.get("employeeNo") || "").trim(),
       phone: String(fd.get("phone") || "").trim(),
+      whatsapp: String(fd.get("whatsapp") || "").trim(),
       email: String(fd.get("email") || "").trim(),
+      website: String(fd.get("website") || "").trim(),
+      location: String(fd.get("location") || "").trim(),
+      mapUrl: String(fd.get("mapUrl") || "").trim(),
+      xUrl: String(fd.get("xUrl") || "").trim(),
+      instagramUrl: String(fd.get("instagramUrl") || "").trim(),
+      linkedinUrl: String(fd.get("linkedinUrl") || "").trim(),
+      snapchatUrl: String(fd.get("snapchatUrl") || "").trim(),
+      tiktokUrl: String(fd.get("tiktokUrl") || "").trim(),
+      facebookUrl: String(fd.get("facebookUrl") || "").trim(),
       joinedOn: String(fd.get("joinedOn") || ""),
       photo: S.photo,
       theme: fd.get("theme") === "noir" ? "noir" : "forest",
@@ -631,6 +675,17 @@ function makeQrDataUrl(text, size = 600) {
   });
 }
 
+function printHost(url) {
+  try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return url; }
+}
+function printHandle(url) {
+  try {
+    const path = new URL(url).pathname.replace(/\/+$/, "");
+    const last = decodeURIComponent(path.split("/").filter(Boolean).pop() || "").replace(/^@+/, "");
+    return last || printHost(url);
+  } catch { return url; }
+}
+
 async function printCard(e) {
   let qr;
   try { qr = await makeQrDataUrl(cardUrl(e.publicId)); }
@@ -638,73 +693,88 @@ async function printCard(e) {
   const logo = await logoDataUrl().catch(() => `${CARD_ORIGIN}/gec-logo.png`);
 
   const photo = e.photo ? `<img src="${esc(e.photo)}" alt="">` : esc(initials(e.nameAr));
+  const socialLine = (label, url, at = false) => url
+    ? `<span><b>${label}</b><span dir="ltr">${at ? "@" : ""}${esc(printHandle(url))}</span></span>`
+    : "";
+  const backRows = [
+    `<span><b>الرقم</b><span dir="ltr">${esc(e.employeeNo)}</span></span>`,
+    e.phone ? `<span><b>الجوال</b><span dir="ltr">${esc(e.phone)}</span></span>` : "",
+    (e.whatsapp || e.phone) ? `<span><b>واتساب</b><span dir="ltr">${esc(e.whatsapp || e.phone)}</span></span>` : "",
+    e.email ? `<span><b>البريد</b><span dir="ltr">${esc(e.email)}</span></span>` : "",
+    e.website ? `<span><b>الموقع</b><span dir="ltr">${esc(printHost(e.website))}</span></span>` : "",
+    e.location ? `<span><b>اللوكيشن</b><span>${esc(e.location)}</span></span>` : "",
+    socialLine("X", e.xUrl, true),
+    socialLine("إنستغرام", e.instagramUrl, true),
+    socialLine("لينكدإن", e.linkedinUrl),
+    socialLine("سناب", e.snapchatUrl, true),
+    socialLine("تيك توك", e.tiktokUrl, true),
+    socialLine("فيسبوك", e.facebookUrl),
+  ].filter(Boolean).join("");
+
   const html = `<!doctype html>
 <html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <title>${esc(e.employeeNo)} — ${esc(e.nameAr)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700;800&family=Inter:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  @page{size:85.6mm 54mm;margin:0}
+  @page{size:54mm 85.6mm;margin:0}
   *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html,body{margin:0;padding:0;background:#fff}
   .screen-bar{display:none}
-  .sheet{width:85.6mm;height:54mm;position:relative;overflow:hidden;page-break-after:always;break-after:page}
+  .sheet{width:54mm;height:85.6mm;position:relative;overflow:hidden;page-break-after:always;break-after:page}
   .sheet:last-child{page-break-after:auto;break-after:auto}
-  .front{background:linear-gradient(135deg,#0E2B16,#1B4A26);color:#F7F4EA;font-family:Tajawal,sans-serif;padding:2.8mm}
-  .front.noir{background:linear-gradient(135deg,#0B0B0A,#242017)}
-  .front::after{content:"";position:absolute;inset:1.5mm;border:.25mm solid rgba(228,199,102,.5);border-radius:2mm;pointer-events:none}
-  .f-top{display:flex;align-items:center;justify-content:space-between;height:8mm;position:relative;z-index:1}
-  .logo{background:#fff;border-radius:1mm;padding:.7mm 1.5mm;height:7.2mm;display:flex;align-items:center}
-  .logo img{height:5.6mm;width:auto;display:block}
-  .kind{text-align:left;font-size:2.1mm;line-height:1.25;color:#E4C766;letter-spacing:.08em}
-  .kind small{display:block;font-size:1.65mm;color:rgba(247,244,234,.65);letter-spacing:.12em}
-  .f-main{display:flex;align-items:center;gap:2.6mm;height:29mm;position:relative;z-index:1}
-  .photo{width:15mm;height:15mm;border-radius:50%;overflow:hidden;border:.4mm solid #E4C766;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:5mm;font-weight:700;color:#E4C766;flex:none}
+  .front{background:linear-gradient(160deg,#0B2B16,#164A25 70%,#08200F);color:#F7F1E1;font-family:Tajawal,sans-serif;padding:3mm;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .front.noir{background:linear-gradient(160deg,#0A0A08,#1C1A14 70%,#050504)}
+  .front::after{content:"";position:absolute;inset:1.2mm;border:.22mm solid rgba(231,199,122,.5);border-radius:2mm;pointer-events:none}
+  .f-logo{width:23mm;height:14.5mm;background:#FBF8EE;border-radius:1.6mm;display:flex;align-items:center;justify-content:center;border:.2mm solid rgba(231,199,122,.5);position:relative;z-index:1}
+  .f-logo img{width:19mm;max-height:11.5mm;object-fit:contain;display:block}
+  .f-company{font-size:2mm;color:#E7C77A;font-weight:700;margin-top:.8mm;position:relative;z-index:1}
+  .f-kind{font-size:1.45mm;letter-spacing:.12em;color:rgba(247,241,225,.65);margin-top:.2mm;position:relative;z-index:1}
+  .photo{width:17mm;height:17mm;border-radius:50%;overflow:hidden;border:.35mm solid #E7C77A;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:5.2mm;font-weight:700;color:#E7C77A;margin-top:2mm;position:relative;z-index:1}
   .photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .who{flex:1;min-width:0;line-height:1.25}
-  .who h1{font-size:4.3mm;margin:0;font-weight:800;color:#FBF8EC;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .who .en{font-family:Inter,sans-serif;font-size:2mm;color:rgba(247,244,234,.7);margin:.3mm 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .who .role{font-size:2.6mm;margin:1mm 0 0;color:#E4C766;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .who .role-en{font-family:Inter,sans-serif;font-size:1.75mm;color:rgba(247,244,234,.65);margin:.2mm 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .qr{width:16mm;height:16mm;background:#fff;border-radius:1mm;padding:1mm;flex:none}
-  .qr img{width:100%;height:100%;display:block}
-  .f-foot{display:flex;align-items:flex-end;justify-content:space-between;height:7mm;gap:2mm;position:relative;z-index:1}
-  .no{font-family:Inter,sans-serif;font-size:2.4mm;color:#E4C766;letter-spacing:.06em;direction:ltr}
-  .dept{font-size:2mm;color:rgba(247,244,234,.72);text-align:left;max-width:34mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .back{background:#FAFAF7;color:#1A1A18;font-family:Tajawal,sans-serif;padding:3mm;border:.2mm solid #E8E8E5}
-  .b-head{display:flex;align-items:center;justify-content:space-between;border-bottom:.3mm solid #C9A227;padding-bottom:1.4mm;margin-bottom:2mm}
+  .front h1{font-family:"Aref Ruqaa",Tajawal,serif;font-size:4.1mm;line-height:1.35;margin:1.2mm 0 0;color:#FBF8EC;position:relative;z-index:1;max-width:100%;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .en{font-family:Inter,sans-serif;font-size:1.55mm;color:rgba(247,241,225,.7);margin:.2mm 0 0;position:relative;z-index:1;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .role{font-size:2.2mm;color:#E7C77A;font-weight:700;margin:.8mm 0 0;position:relative;z-index:1;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .role-en{font-family:Inter,sans-serif;font-size:1.4mm;color:rgba(247,241,225,.62);margin:.1mm 0 0;position:relative;z-index:1;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dept{display:inline-block;margin-top:.9mm;padding:.4mm 1.5mm;border:.2mm solid rgba(231,199,122,.35);border-radius:2mm;font-size:1.55mm;color:#E7C77A;position:relative;z-index:1;max-width:46mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .f-qr{width:15mm;height:15mm;background:#fff;border-radius:1mm;padding:.8mm;margin-top:auto;position:relative;z-index:1}
+  .f-qr img{width:100%;height:100%;display:block}
+  .f-no{font-family:Inter,sans-serif;font-size:2mm;color:#E7C77A;letter-spacing:.06em;direction:ltr;margin-top:.8mm;position:relative;z-index:1}
+  .back{background:#FAFAF7;color:#1A1A18;font-family:Tajawal,sans-serif;padding:3mm;border:.2mm solid #E8E8E5;display:flex;flex-direction:column}
+  .b-head{display:flex;align-items:center;justify-content:space-between;border-bottom:.3mm solid #C9A227;padding-bottom:1.2mm;margin-bottom:1.6mm}
   .b-head img{height:6mm;width:auto}
-  .b-head b{font-size:2.5mm;color:#2D5F2D}
-  .b-title{font-size:2.15mm;font-weight:700;color:#1B4A26;margin:0 0 1mm}
-  .b-lines{display:flex;flex-direction:column;gap:.85mm;font-size:2.05mm;color:#4A4A46;line-height:1.35}
-  .b-lines span{display:flex;gap:1.5mm}
-  .b-lines b{color:#1A1A18;font-weight:600;min-width:9mm}
-  .b-note{position:absolute;inset-inline:3mm;bottom:2.3mm;font-size:1.55mm;color:#6C6C67;line-height:1.35;border-top:.2mm dashed #D0D0CC;padding-top:1mm}
+  .b-head b{font-size:2.1mm;color:#2D5F2D}
+  .b-title{font-size:1.9mm;font-weight:700;color:#1B4A26;margin:0 0 .8mm}
+  .b-name{font-size:2.5mm;font-weight:800;color:#1A1A18;margin:0 0 1.2mm;line-height:1.3}
+  .b-lines{display:flex;flex-direction:column;gap:.7mm;font-size:1.75mm;color:#4A4A46;line-height:1.35}
+  .b-lines span{display:flex;gap:1mm}
+  .b-lines b{color:#1A1A18;font-weight:600;min-width:7mm;flex:none}
+  .b-lines span span{min-width:0;overflow-wrap:anywhere}
+  .b-note{margin-top:auto;font-size:1.25mm;color:#6C6C67;line-height:1.35;border-top:.2mm dashed #D0D0CC;padding-top:.8mm}
   .b-note strong{color:#2D5F2D}
-  @media screen{body{background:#e9e9e5;padding:10mm}.sheet{margin:0 auto 6mm;box-shadow:0 3mm 8mm rgba(0,0,0,.18)}.screen-bar{display:flex;gap:10px;align-items:center;justify-content:center;margin:0 auto 6mm;font:14px Tajawal,sans-serif}.screen-bar button{font:inherit;padding:8px 18px;border:0;border-radius:6px;background:#1B4A26;color:#fff;cursor:pointer}}
+  @media screen{body{background:#e9e9e5;padding:8mm}.sheet{margin:0 auto 6mm;box-shadow:0 3mm 8mm rgba(0,0,0,.18)}.screen-bar{display:flex;gap:10px;align-items:center;justify-content:center;margin:0 auto 6mm;font:14px Tajawal,sans-serif}.screen-bar button{font:inherit;padding:8px 18px;border:0;border-radius:6px;background:#1B4A26;color:#fff;cursor:pointer}}
   @media print{.screen-bar{display:none}}
 </style></head>
 <body>
-<div class="screen-bar"><button type="button" onclick="window.print()">طباعة</button><span>اختر الصفحة الأمامية أو الصفحتين من نافذة الطباعة.</span></div>
+<div class="screen-bar"><button type="button" onclick="window.print()">طباعة</button><span>بطاقة طولية 54 × 85.6 مم — اختر الصفحتين من نافذة الطباعة.</span></div>
 <div class="sheet front ${e.theme === "noir" ? "noir" : ""}">
-  <div class="f-top"><span class="logo"><img src="${logo}" alt="GEC"></span><span class="kind">بطاقة موظف<small>EMPLOYEE ID</small></span></div>
-  <div class="f-main">
-    <div class="photo">${photo}</div>
-    <div class="who"><h1>${esc(e.nameAr)}</h1>${e.nameEn ? `<p class="en">${esc(e.nameEn)}</p>` : ""}<p class="role">${esc(e.titleAr)}</p>${e.titleEn ? `<p class="role-en">${esc(e.titleEn)}</p>` : ""}</div>
-    <div class="qr"><img src="${qr}" alt="QR"></div>
-  </div>
-  <div class="f-foot"><span class="no">${esc(e.employeeNo)}</span><span class="dept">${esc(e.department)}</span></div>
+  <div class="f-logo"><img src="${logo}" alt="GEC"></div>
+  <div class="f-company">شركة البيئة الخضراء</div>
+  <div class="f-kind">بطاقة موظف · EMPLOYEE ID</div>
+  <div class="photo">${photo}</div>
+  <h1>${esc(e.nameAr)}</h1>
+  ${e.nameEn ? `<p class="en">${esc(e.nameEn)}</p>` : ""}
+  <p class="role">${esc(e.titleAr)}</p>
+  ${e.titleEn ? `<p class="role-en">${esc(e.titleEn)}</p>` : ""}
+  ${e.department ? `<span class="dept">${esc(e.department)}</span>` : ""}
+  <div class="f-qr"><img src="${qr}" alt="QR"></div>
+  <div class="f-no">${esc(e.employeeNo)}</div>
 </div>
 <div class="sheet back">
   <div class="b-head"><img src="${logo}" alt="GEC"><b>شركة البيئة الخضراء</b></div>
   <p class="b-title">بطاقة تعريف موظف</p>
-  <div class="b-lines">
-    <span><b>الاسم</b>${esc(e.nameAr)}</span>
-    <span><b>الرقم</b>${esc(e.employeeNo)}</span>
-    ${e.phone ? `<span><b>الجوال</b><span dir="ltr">${esc(e.phone)}</span></span>` : ""}
-    ${e.email ? `<span><b>البريد</b><span dir="ltr">${esc(e.email)}</span></span>` : ""}
-    <span><b>الموقع</b><span dir="ltr">geckuw.com</span></span>
-  </div>
+  <div class="b-name">${esc(e.nameAr)}</div>
+  <div class="b-lines">${backRows}</div>
   <div class="b-note"><strong>هذه البطاقة ملك لشركة البيئة الخضراء.</strong> عند العثور عليها يرجى تسليمها إلى مكتب الاستقبال أو الاتصال على 22245887. برج مزايا 1، الدور 15، المرقاب، مدينة الكويت.</div>
 </div>
 </body></html>`;

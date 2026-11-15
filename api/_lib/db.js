@@ -92,7 +92,17 @@ export function ensureSchema() {
           department text not null default '',
           employee_no text not null unique,
           phone text not null default '',
+          whatsapp text not null default '',
           email text not null default '',
+          website text not null default '',
+          location text not null default '',
+          map_url text not null default '',
+          x_url text not null default '',
+          instagram_url text not null default '',
+          linkedin_url text not null default '',
+          snapchat_url text not null default '',
+          tiktok_url text not null default '',
+          facebook_url text not null default '',
           joined_on date,
           photo text not null default '',
           visible boolean not null default true,
@@ -102,6 +112,14 @@ export function ensureSchema() {
           created_at timestamptz not null default now(),
           updated_at timestamptz not null default now()
         )`;
+      // Existing installations already have the first version of this table.
+      // Add the contact/accounts columns in place so no card data is lost.
+      for (const col of [
+        "whatsapp", "website", "location", "map_url", "x_url",
+        "instagram_url", "linkedin_url", "snapchat_url", "tiktok_url", "facebook_url",
+      ]) {
+        await s`alter table employees add column if not exists ${s(col)} text not null default ''`;
+      }
       await s`create index if not exists employees_visible_idx on employees (visible, created_at)`;
       // Same reason as users/tracking: keep the table closed to Supabase's anon API.
       await s`alter table employees enable row level security`;
