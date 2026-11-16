@@ -377,8 +377,8 @@ function openForm(employee = null) {
           <div class="photo-row">
             <div class="photo-prev" id="photoPrev">${photo}</div>
             <div class="photo-btns">
-              <div class="row"><button type="button" class="btn small" id="photoPick">اختيار صورة</button><button type="button" class="btn small" id="photoClear">إزالة</button></div>
-              <p class="hint">JPG أو PNG. تُقص مربعة وتُضغط تلقائياً حتى تفتح البطاقة بسرعة.</p>
+              <div class="row"><button type="button" class="btn small" id="photoPick">اختيار صورة</button></div>
+              <p class="hint">JPG أو PNG. تُقص مربعة وتُضغط تلقائياً، ويمكنك إخفاؤها من المفتاح أدناه دون حذفها.</p>
             </div>
           </div>
           <input type="file" id="photoFile" accept="image/jpeg,image/png,image/webp" hidden>
@@ -449,7 +449,6 @@ function openForm(employee = null) {
     updatePreview();
   };
   $("#photoPick").onclick = () => $("#photoFile").click();
-  $("#photoClear").onclick = () => setPhoto("");
   $("#photoFile").onchange = async (ev) => {
     const file = ev.target.files?.[0];
     ev.target.value = "";
