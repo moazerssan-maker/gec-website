@@ -129,7 +129,7 @@ async function init() {
 }
 
 function render(card) {
-  document.title = `${card.nameAr} — بطاقة موظف | البيئة الخضراء`;
+  document.title = `${card.nameAr} — بطاقة | البيئة الخضراء`;
   const theme = card.theme === "noir" ? "noir" : "forest";
   const photo = card.photo
     ? `<img src="${esc(card.photo)}" alt="${esc(card.nameAr)}">`
@@ -139,7 +139,7 @@ function render(card) {
 
   root.classList.remove("has-error");
   root.innerHTML = `
-  <article class="idcard theme-${theme}" aria-label="بطاقة موظف ${esc(card.nameAr)}">
+  <article class="idcard theme-${theme}" aria-label="بطاقة ${esc(card.nameAr)}">
     <span class="glow a" aria-hidden="true"></span><span class="glow b" aria-hidden="true"></span>
 
     <header class="ctop">
@@ -164,7 +164,6 @@ function render(card) {
     <footer class="cfoot">
       <div class="qr-wrap"><div id="cardQr" aria-label="رمز QR للبطاقة"></div></div>
       <div class="foot-meta">
-        <span>بطاقة موظف</span>
         <b class="ltr">${esc(card.employeeNo)}</b>
         ${joined ? `<small>انضم في ${esc(joined)}</small>` : ""}
         <small>امسح رمز QR للتحقق · geckuw.com</small>
@@ -176,7 +175,7 @@ function render(card) {
     <button type="button" class="btn-save" id="saveContact">${icon("save")} حفظ جهة الاتصال</button>
     <button type="button" class="btn-share" id="shareBtn">${icon("share")} مشاركة البطاقة</button>
   </div>
-  <p class="site-note">بطاقة موظف رقمية · شركة البيئة الخضراء · <a href="https://geckuw.com" target="_blank" rel="noopener">geckuw.com</a></p>`;
+  <p class="site-note">بطاقة رقمية · شركة البيئة الخضراء · <a href="https://geckuw.com" target="_blank" rel="noopener">geckuw.com</a></p>`;
 
   const url = `${CARD_ORIGIN}/card/?id=${encodeURIComponent(card.id)}`;
   try {
@@ -212,7 +211,7 @@ function saveVCard(card, url) {
     card.tiktokUrl ? `X-SOCIALPROFILE;TYPE=tiktok:${v(card.tiktokUrl)}` : "",
     card.facebookUrl ? `X-SOCIALPROFILE;TYPE=facebook:${v(card.facebookUrl)}` : "",
     `URL:${url}`,
-    `NOTE:${v(`بطاقة موظف — ${card.employeeNo}`)}`,
+    `NOTE:${v(`بطاقة — ${card.employeeNo}`)}`,
     "END:VCARD",
   ].filter(Boolean);
   const blob = new Blob([`${lines.join("\r\n")}\r\n`], { type: "text/vcard;charset=utf-8" });
@@ -228,7 +227,7 @@ function saveVCard(card, url) {
 
 async function shareCard(card, url) {
   const data = {
-    title: `${card.nameAr} — بطاقة موظف`,
+    title: `${card.nameAr} — بطاقة`,
     text: `${card.nameAr} · ${card.titleAr} — البيئة الخضراء`,
     url,
   };
@@ -254,7 +253,7 @@ function unavailable(kind) {
     missing: "رابط البطاقة غير مكتمل | البيئة الخضراء",
     hidden: "البطاقة غير متاحة | البيئة الخضراء",
     error: "تعذّر تحميل البطاقة | البيئة الخضراء",
-  }[kind] || "بطاقة موظف | البيئة الخضراء";
+  }[kind] || "بطاقة | البيئة الخضراء";
   const copy = {
     missing: ["رابط البطاقة غير مكتمل", "افتح الرابط الظاهر في رمز QR كما هو، أو اطلب الرابط الصحيح من الموظف."],
     hidden: ["البطاقة غير متاحة", "قد تكون البطاقة مخفية مؤقتاً من إدارة الشركة، أو أن الرابط لم يعد صالحاً. تواصل مع الموظف أو مع مكتب البيئة الخضراء."],

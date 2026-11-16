@@ -6,6 +6,22 @@ import crypto from "node:crypto";
  */
 export const THEMES = new Set(["forest", "noir"]);
 export const PUBLIC_ID_RE = /^[A-Za-z0-9_-]{8,32}$/;
+export const COMPANY_DEFAULTS = Object.freeze({
+  website: "https://geckuw.com/",
+  location: "المرقاب - شارع خالد بن الوليد - مزايا 1 - دور 15",
+  mapUrl: "https://maps.app.goo.gl/Xfx5YbewkECKjSZv6",
+  instagramUrl: "https://instagram.com/gec.kwt",
+  linkedinUrl: "https://www.linkedin.com/company/gec-kuwait",
+});
+
+const withCompanyDefaults = (row) => ({
+  ...row,
+  website: row.website || COMPANY_DEFAULTS.website,
+  location: row.location || COMPANY_DEFAULTS.location,
+  map_url: row.map_url || COMPANY_DEFAULTS.mapUrl,
+  instagram_url: row.instagram_url || COMPANY_DEFAULTS.instagramUrl,
+  linkedin_url: row.linkedin_url || COMPANY_DEFAULTS.linkedinUrl,
+});
 
 /** URL-safe, unguessable id used by the QR code. Never derived from the name. */
 export function newPublicId() {
@@ -158,7 +174,7 @@ export function adminCard(row) {
     phone: row.phone,
     whatsapp: row.whatsapp,
     email: row.email,
-    ...contactFields(row),
+    ...contactFields(withCompanyDefaults(row)),
     joinedOn: dateOnly(row.joined_on),
     photo: row.photo,
     visible: row.visible,
@@ -184,7 +200,7 @@ export function publicCard(row) {
     phone: row.show_phone ? row.phone : "",
     whatsapp: row.show_phone ? row.whatsapp : "",
     email: row.show_email ? row.email : "",
-    ...contactFields(row),
+    ...contactFields(withCompanyDefaults(row)),
     joinedOn: dateOnly(row.joined_on),
     photo: row.show_photo ? row.photo : "",
     showPhoto: row.show_photo,

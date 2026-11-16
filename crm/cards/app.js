@@ -76,7 +76,13 @@ async function api(path, opts = {}) {
 
 /* ---------- State ---------- */
 const S = { me: null, employees: [], filter: "all", q: "", editing: null, photo: "", busy: false };
-
+const COMPANY_DEFAULTS = {
+  website: "https://geckuw.com/",
+  location: "المرقاب - شارع خالد بن الوليد - مزايا 1 - دور 15",
+  mapUrl: "https://maps.app.goo.gl/Xfx5YbewkECKjSZv6",
+  instagramUrl: "https://instagram.com/gec.kwt",
+  linkedinUrl: "https://www.linkedin.com/company/gec-kuwait",
+};
 function toast(msg) {
   const r = $("#toastRoot");
   r.innerHTML = `<div class="toast" role="status">${esc(msg)}</div>`;
@@ -295,7 +301,7 @@ function openForm(employee = null) {
   S.editing = employee;
   S.photo = employee?.photo || "";
   const isEdit = !!employee;
-  const e = employee || { theme: "forest", visible: true, showPhone: true, showEmail: true, showPhoto: true };
+  const e = employee || { ...COMPANY_DEFAULTS, theme: "forest", visible: true, showPhone: true, showEmail: true, showPhoto: true };
   const photo = e.showPhoto !== false && S.photo ? `<img src="${esc(S.photo)}" alt="">` : esc(initials(e.nameAr) || "؟");
 
   $("#drawerRoot").innerHTML = `
@@ -370,6 +376,7 @@ function openForm(employee = null) {
             <label class="field"><span>فيسبوك</span><input name="facebookUrl" dir="ltr" maxlength="500" placeholder="اسم الصفحة أو الرابط" value="${esc(e.facebookUrl)}" autocomplete="off"></label>
           </div>
           <p class="hint">يمكنك كتابة اسم المستخدم فقط مثل @sara، أو لصق رابط الحساب الكامل.</p>
+          <p class="hint">الموقع واللوكيشن والخريطة وإنستغرام ولينكدإن تُعبأ تلقائياً بقيم الشركة، وتقدر تعدلها لأي موظف.</p>
         </section>
 
         <section class="fset">
@@ -798,7 +805,6 @@ async function printCard(e) {
 <div class="sheet front ${e.theme === "noir" ? "noir" : ""}">
   <div class="f-logo"><img src="${logo}" alt="GEC"></div>
   <div class="f-company">شركة البيئة الخضراء</div>
-  <div class="f-kind">بطاقة موظف · EMPLOYEE ID</div>
   ${e.showPhoto !== false ? `<div class="photo">${photo}</div>` : ""}
   <h1>${esc(e.nameAr)}</h1>
   ${e.nameEn ? `<p class="en">${esc(e.nameEn)}</p>` : ""}
@@ -810,7 +816,6 @@ async function printCard(e) {
 </div>
 <div class="sheet back">
   <div class="b-head"><img src="${logo}" alt="GEC"><b>شركة البيئة الخضراء</b></div>
-  <p class="b-title">بطاقة تعريف موظف</p>
   <div class="b-name">${esc(e.nameAr)}</div>
   <div class="b-lines">${backRows}</div>
   <div class="b-note"><strong>هذه البطاقة ملك لشركة البيئة الخضراء.</strong> عند العثور عليها يرجى تسليمها إلى مكتب الاستقبال أو الاتصال على 22245887. برج مزايا 1، الدور 15، المرقاب، مدينة الكويت.</div>
