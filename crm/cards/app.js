@@ -221,7 +221,7 @@ const cssEscape = (v) => (window.CSS?.escape ? CSS.escape(v) : String(v).replace
 const cardUrl = (publicId) => `${CARD_ORIGIN}/card/?id=${encodeURIComponent(publicId)}`;
 
 function tile(e) {
-  const photo = e.photo
+  const photo = e.showPhoto !== false && e.photo
     ? `<img src="${esc(e.photo)}" alt="">`
     : esc(initials(e.nameAr));
   return `<article class="emp ${e.visible ? "" : "is-off"}" data-id="${e.id}">
@@ -295,8 +295,8 @@ function openForm(employee = null) {
   S.editing = employee;
   S.photo = employee?.photo || "";
   const isEdit = !!employee;
-  const e = employee || { theme: "forest", visible: true, showPhone: true, showEmail: true };
-  const photo = S.photo ? `<img src="${esc(S.photo)}" alt="">` : esc(initials(e.nameAr) || "؟");
+  const e = employee || { theme: "forest", visible: true, showPhone: true, showEmail: true, showPhoto: true };
+  const photo = e.showPhoto !== false && S.photo ? `<img src="${esc(S.photo)}" alt="">` : esc(initials(e.nameAr) || "؟");
 
   $("#drawerRoot").innerHTML = `
   <div class="scrim" data-close></div>
@@ -381,6 +381,7 @@ function openForm(employee = null) {
             </div>
           </div>
           <input type="file" id="photoFile" accept="image/jpeg,image/png,image/webp" hidden>
+          <label class="switch"><input type="checkbox" name="showPhoto" ${e.showPhoto !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار الصورة الشخصية في البطاقة</b><small>عند الإخفاء تظهر الأحرف الأولى من الاسم بدلاً من الصورة في البطاقة الرقمية والطباعة.</small></span></label>
         </section>
 
         <section class="fset">
@@ -415,7 +416,9 @@ function openForm(employee = null) {
     $('[data-pv="dept"]', preview).textContent = String(fd.get("department") || "").trim() || "القسم / الإدارة";
     $('[data-pv="no"]', preview).textContent = String(fd.get("employeeNo") || "").trim().toUpperCase() || "GEC-000";
     const pv = $('[data-pv="photo"]', preview);
-    pv.innerHTML = S.photo ? `<img src="${esc(S.photo)}" alt="">` : esc(initials(fd.get("nameAr")) || "؟");
+    pv.innerHTML = form.elements.showPhoto.checked && S.photo
+      ? `<img src="${esc(S.photo)}" alt="">`
+      : esc(initials(fd.get("nameAr")) || "؟");
   };
   form.addEventListener("input", updatePreview);
   form.addEventListener("change", updatePreview);
@@ -477,6 +480,7 @@ function openForm(employee = null) {
       visible: form.elements.visible.checked,
       showPhone: form.elements.showPhone.checked,
       showEmail: form.elements.showEmail.checked,
+      showPhoto: form.elements.showPhoto.checked,
     };
     S.busy = true;
     const save = $("#saveBtn");
@@ -703,7 +707,9 @@ async function printCard(e) {
   catch { return toast("تعذّر توليد رمز QR للطباعة."); }
   const logo = await logoDataUrl().catch(() => `${CARD_ORIGIN}/gec-logo.png`);
 
-  const photo = e.photo ? `<img src="${esc(e.photo)}" alt="">` : esc(initials(e.nameAr));
+  const photo = e.showPhoto !== false && e.photo
+    ? `<img src="${esc(e.photo)}" alt="">`
+    : esc(initials(e.nameAr));
   const socialLine = (label, url, at = false) => url
     ? `<span><b>${label}</b><span dir="ltr">${at ? "@" : ""}${esc(printHandle(url))}</span></span>`
     : "";

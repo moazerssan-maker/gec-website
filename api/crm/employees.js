@@ -45,7 +45,7 @@ export default handler(async (req, res) => {
             (public_id, name_ar, name_en, title_ar, title_en, department, employee_no,
              phone, whatsapp, email, website, location, map_url,
              x_url, instagram_url, linkedin_url, snapchat_url, tiktok_url, facebook_url,
-             joined_on, photo, visible, show_phone, show_email, theme)
+             joined_on, photo, visible, show_phone, show_email, show_photo, theme)
           values
             (${newPublicId()}, ${v.nameAr}, ${v.nameEn}, ${v.titleAr}, ${v.titleEn}, ${v.department},
              ${v.employeeNo || pending}, ${v.phone}, ${v.whatsapp ?? ""}, ${v.email},
@@ -53,7 +53,7 @@ export default handler(async (req, res) => {
              ${v.xUrl ?? ""}, ${v.instagramUrl ?? ""}, ${v.linkedinUrl ?? ""},
              ${v.snapchatUrl ?? ""}, ${v.tiktokUrl ?? ""}, ${v.facebookUrl ?? ""},
              ${v.joinedOn || null}, ${v.photo ?? ""},
-             ${v.visible ?? true}, ${v.showPhone ?? true}, ${v.showEmail ?? true}, ${v.theme ?? "forest"})
+             ${v.visible ?? true}, ${v.showPhone ?? true}, ${v.showEmail ?? true}, ${v.showPhoto ?? true}, ${v.theme ?? "forest"})
           returning *`;
         row = inserted;
       } catch (e) {
@@ -99,6 +99,7 @@ export default handler(async (req, res) => {
           visible = coalesce(${v.visible ?? null}, visible),
           show_phone = coalesce(${v.showPhone ?? null}, show_phone),
           show_email = coalesce(${v.showEmail ?? null}, show_email),
+          show_photo = coalesce(${v.showPhoto ?? null}, show_photo),
           theme = coalesce(${v.theme ?? null}, theme), updated_at = now()
         where id = ${id}
         returning *`;

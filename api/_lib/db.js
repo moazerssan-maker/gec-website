@@ -108,6 +108,7 @@ export function ensureSchema() {
           visible boolean not null default true,
           show_phone boolean not null default true,
           show_email boolean not null default true,
+          show_photo boolean not null default true,
           theme text not null default 'forest' check (theme in ('forest','noir')),
           created_at timestamptz not null default now(),
           updated_at timestamptz not null default now()
@@ -120,6 +121,7 @@ export function ensureSchema() {
       ]) {
         await s`alter table employees add column if not exists ${s(col)} text not null default ''`;
       }
+      await s`alter table employees add column if not exists show_photo boolean not null default true`;
       await s`create index if not exists employees_visible_idx on employees (visible, created_at)`;
       // Same reason as users/tracking: keep the table closed to Supabase's anon API.
       await s`alter table employees enable row level security`;

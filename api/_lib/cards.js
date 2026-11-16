@@ -109,6 +109,7 @@ export function cleanInput(b = {}) {
     visible: typeof b.visible === "boolean" ? b.visible : undefined,
     showPhone: typeof b.showPhone === "boolean" ? b.showPhone : undefined,
     showEmail: typeof b.showEmail === "boolean" ? b.showEmail : undefined,
+    showPhoto: typeof b.showPhoto === "boolean" ? b.showPhoto : undefined,
     theme: THEMES.has(b.theme) ? b.theme : undefined,
   };
   if (value.nameAr.length < 2) return { ok: false, error: "name_required" };
@@ -163,6 +164,7 @@ export function adminCard(row) {
     visible: row.visible,
     showPhone: row.show_phone,
     showEmail: row.show_email,
+    showPhoto: row.show_photo,
     theme: row.theme,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -184,7 +186,8 @@ export function publicCard(row) {
     email: row.show_email ? row.email : "",
     ...contactFields(row),
     joinedOn: dateOnly(row.joined_on),
-    photo: row.photo,
+    photo: row.show_photo ? row.photo : "",
+    showPhoto: row.show_photo,
     theme: row.theme,
   };
 }
