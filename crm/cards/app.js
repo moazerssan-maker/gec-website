@@ -317,6 +317,7 @@ function openForm(employee = null) {
             <small class="mini-title" data-pv="title">${esc(e.titleAr || "المسمى الوظيفي")}</small>
             <small class="mini-title-en" data-pv="titleEn" ${e.titleEn ? "" : "hidden"}>${esc(e.titleEn)}</small>
             <span class="mini-dept" data-pv="dept">${esc(e.department || "القسم / الإدارة")}</span>
+            <div class="mini-contacts" data-pv="contacts"></div>
             <div class="mini-foot">
               <span class="mini-no" data-pv="no">${esc(e.employeeNo || "GEC-000")}</span>
               <div class="mini-qr" aria-hidden="true"></div>
@@ -414,6 +415,24 @@ function openForm(employee = null) {
     titleEnEl.textContent = titleEn;
     titleEnEl.hidden = !titleEn;
     $('[data-pv="dept"]', preview).textContent = String(fd.get("department") || "").trim() || "القسم / الإدارة";
+    const contacts = [];
+    const addContact = (label, key) => {
+      const value = String(fd.get(key) || "").trim();
+      if (value) contacts.push(`<span><b>${esc(label)}</b><i>${esc(value)}</i></span>`);
+    };
+    addContact("جوال", "phone");
+    addContact("واتساب", "whatsapp");
+    addContact("بريد", "email");
+    addContact("موقع", "website");
+    addContact("لوكيشن", "location");
+    addContact("X", "xUrl");
+    addContact("إنستغرام", "instagramUrl");
+    addContact("لينكدإن", "linkedinUrl");
+    addContact("سناب", "snapchatUrl");
+    addContact("تيك توك", "tiktokUrl");
+    addContact("فيسبوك", "facebookUrl");
+    $('[data-pv="contacts"]', preview).innerHTML = contacts.slice(0, 5).join("")
+      + (contacts.length > 5 ? `<span class="more">+${contacts.length - 5} أخرى</span>` : "");
     $('[data-pv="no"]', preview).textContent = String(fd.get("employeeNo") || "").trim().toUpperCase() || "GEC-000";
     const pv = $('[data-pv="photo"]', preview);
     pv.innerHTML = form.elements.showPhoto.checked && S.photo
@@ -422,6 +441,7 @@ function openForm(employee = null) {
   };
   form.addEventListener("input", updatePreview);
   form.addEventListener("change", updatePreview);
+  updatePreview();
 
   const setPhoto = (data) => {
     S.photo = data || "";

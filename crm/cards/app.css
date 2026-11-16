@@ -66,6 +66,11 @@ body{background:var(--bg)}
 .mini-title{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;color:var(--gold-light);line-height:1.5;max-width:100%}
 .mini-title-en{font-family:"Inter",sans-serif;font-size:8px;color:rgba(247,244,234,.55);line-height:1.45;direction:ltr;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-dept{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:9px;color:rgba(247,244,234,.68);line-height:1.5;max-width:100%}
+.mini-contacts{display:flex;flex-direction:column;gap:2px;width:100%;max-height:72px;overflow:hidden;margin-top:1px;text-align:start}
+.mini-contacts span{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:7px;line-height:1.35;color:rgba(247,244,234,.78);border-top:1px solid rgba(228,199,102,.14);padding-top:2px}
+.mini-contacts b{font-weight:600;color:var(--gold-light);white-space:nowrap}
+.mini-contacts i{font-style:normal;direction:ltr;unicode-bidi:isolate;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%}
+.mini-contacts .more{justify-content:flex-end;color:rgba(247,244,234,.5);font-size:6.5px;border-top:0}
 .mini-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;margin-top:auto;padding-top:7px;border-top:1px solid rgba(228,199,102,.22)}
 .mini-no{font-size:8.5px;letter-spacing:.05em;color:var(--gold-light);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 .mini-qr{width:38px;height:38px;background:#fff;border-radius:5px;padding:3px;flex:none;display:grid;place-items:center}
@@ -101,6 +106,9 @@ aside.drawer .d-body{gap:14px}
 .form-preview .mini-title{font-size:12px}
 .form-preview .mini-title-en{font-size:9.5px}
 .form-preview .mini-dept{font-size:10.5px}
+.form-preview .mini-contacts{max-height:96px}
+.form-preview .mini-contacts span{font-size:8.5px;gap:8px;padding-top:3px}
+.form-preview .mini-contacts .more{font-size:7.5px}
 .form-preview .mini-qr{width:44px;height:44px}
 .form-preview .hint{text-align:center;margin:7px 0 0;font-size:11.5px;color:var(--muted)}
 .fset{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
