@@ -62,7 +62,9 @@ body{background:var(--bg)}
 .mini-photo{width:52px;height:52px;border-radius:50%;overflow:hidden;flex:none;border:1.5px solid var(--gold-light);background:rgba(255,255,255,.10);display:grid;place-items:center;font-weight:700;font-size:17px;color:var(--gold-light);box-shadow:0 0 0 4px rgba(228,199,102,.06)}
 .mini-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .mini-name{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;font-weight:700;line-height:1.45;color:#FBF8EC;margin-top:1px;overflow-wrap:anywhere}
+.mini-en{font-family:"Inter",sans-serif;font-size:9px;color:rgba(247,244,234,.72);line-height:1.45;direction:ltr;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-title{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;color:var(--gold-light);line-height:1.5;max-width:100%}
+.mini-title-en{font-family:"Inter",sans-serif;font-size:8px;color:rgba(247,244,234,.55);line-height:1.45;direction:ltr;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-dept{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:9px;color:rgba(247,244,234,.68);line-height:1.5;max-width:100%}
 .mini-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;margin-top:auto;padding-top:7px;border-top:1px solid rgba(228,199,102,.22)}
 .mini-no{font-size:8.5px;letter-spacing:.05em;color:var(--gold-light);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
@@ -95,7 +97,9 @@ aside.drawer .d-body{gap:14px}
 .form-preview .mini-logo img{height:32px}
 .form-preview .mini-photo{width:64px;height:64px;font-size:22px}
 .form-preview .mini-name{font-family:"Aref Ruqaa","Tajawal",serif;font-size:21px}
+.form-preview .mini-en{font-size:11.5px}
 .form-preview .mini-title{font-size:12px}
+.form-preview .mini-title-en{font-size:9.5px}
 .form-preview .mini-dept{font-size:10.5px}
 .form-preview .mini-qr{width:44px;height:44px}
 .form-preview .hint{text-align:center;margin:7px 0 0;font-size:11.5px;color:var(--muted)}

@@ -229,6 +229,7 @@ function tile(e) {
       <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
       <div class="mini-photo">${photo}</div>
       <b class="mini-name">${esc(e.nameAr)}</b>
+      ${e.nameEn ? `<small class="mini-en">${esc(e.nameEn)}</small>` : ""}
       <small class="mini-title">${esc(e.titleAr)}</small>
       ${e.department ? `<span class="mini-dept">${esc(e.department)}</span>` : ""}
       <div class="mini-foot">
@@ -312,7 +313,9 @@ function openForm(employee = null) {
             <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
             <div class="mini-photo" data-pv="photo">${photo}</div>
             <b class="mini-name" data-pv="name">${esc(e.nameAr || "اسم الموظف")}</b>
+            <small class="mini-en" data-pv="en" ${e.nameEn ? "" : "hidden"}>${esc(e.nameEn)}</small>
             <small class="mini-title" data-pv="title">${esc(e.titleAr || "المسمى الوظيفي")}</small>
+            <small class="mini-title-en" data-pv="titleEn" ${e.titleEn ? "" : "hidden"}>${esc(e.titleEn)}</small>
             <span class="mini-dept" data-pv="dept">${esc(e.department || "القسم / الإدارة")}</span>
             <div class="mini-foot">
               <span class="mini-no" data-pv="no">${esc(e.employeeNo || "GEC-000")}</span>
@@ -400,7 +403,15 @@ function openForm(employee = null) {
     const fd = new FormData(form);
     preview.className = `mini theme-${fd.get("theme") === "noir" ? "noir" : "forest"}`;
     $('[data-pv="name"]', preview).textContent = String(fd.get("nameAr") || "").trim() || "اسم الموظف";
+    const en = String(fd.get("nameEn") || "").trim();
+    const enEl = $('[data-pv="en"]', preview);
+    enEl.textContent = en;
+    enEl.hidden = !en;
     $('[data-pv="title"]', preview).textContent = String(fd.get("titleAr") || "").trim() || "المسمى الوظيفي";
+    const titleEn = String(fd.get("titleEn") || "").trim();
+    const titleEnEl = $('[data-pv="titleEn"]', preview);
+    titleEnEl.textContent = titleEn;
+    titleEnEl.hidden = !titleEn;
     $('[data-pv="dept"]', preview).textContent = String(fd.get("department") || "").trim() || "القسم / الإدارة";
     $('[data-pv="no"]', preview).textContent = String(fd.get("employeeNo") || "").trim().toUpperCase() || "GEC-000";
     const pv = $('[data-pv="photo"]', preview);
