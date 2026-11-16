@@ -227,7 +227,7 @@ function tile(e) {
   return `<article class="emp ${e.visible ? "" : "is-off"}" data-id="${e.id}">
     <div class="mini theme-${esc(e.theme)}">
       <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
-      <div class="mini-photo">${photo}</div>
+      ${e.showPhoto !== false ? `<div class="mini-photo">${photo}</div>` : ""}
       <b class="mini-name">${esc(e.nameAr)}</b>
       ${e.nameEn ? `<small class="mini-en">${esc(e.nameEn)}</small>` : ""}
       <small class="mini-title">${esc(e.titleAr)}</small>
@@ -311,7 +311,7 @@ function openForm(employee = null) {
         <div class="form-preview">
           <div class="mini theme-${esc(e.theme)}" id="formPreview">
             <span class="mini-logo"><img src="/gec-logo.png" alt="GEC"></span>
-            <div class="mini-photo" data-pv="photo">${photo}</div>
+            <div class="mini-photo" data-pv="photo" ${e.showPhoto === false ? "hidden" : ""}>${photo}</div>
             <b class="mini-name" data-pv="name">${esc(e.nameAr || "اسم الموظف")}</b>
             <small class="mini-en" data-pv="en" ${e.nameEn ? "" : "hidden"}>${esc(e.nameEn)}</small>
             <small class="mini-title" data-pv="title">${esc(e.titleAr || "المسمى الوظيفي")}</small>
@@ -382,7 +382,7 @@ function openForm(employee = null) {
             </div>
           </div>
           <input type="file" id="photoFile" accept="image/jpeg,image/png,image/webp" hidden>
-          <label class="switch"><input type="checkbox" name="showPhoto" ${e.showPhoto !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار الصورة الشخصية في البطاقة</b><small>عند الإخفاء تظهر الأحرف الأولى من الاسم بدلاً من الصورة في البطاقة الرقمية والطباعة.</small></span></label>
+          <label class="switch"><input type="checkbox" name="showPhoto" ${e.showPhoto !== false ? "checked" : ""}><span class="track"></span><span class="txt"><b>إظهار الصورة الشخصية في البطاقة</b><small>عند الإخفاء تختفي دائرة الصورة بالكامل من البطاقة الرقمية والطباعة، ويبقى الاسم فقط.</small></span></label>
         </section>
 
         <section class="fset">
@@ -435,7 +435,9 @@ function openForm(employee = null) {
       + (contacts.length > 5 ? `<span class="more">+${contacts.length - 5} أخرى</span>` : "");
     $('[data-pv="no"]', preview).textContent = String(fd.get("employeeNo") || "").trim().toUpperCase() || "GEC-000";
     const pv = $('[data-pv="photo"]', preview);
-    pv.innerHTML = form.elements.showPhoto.checked && S.photo
+    const showPhoto = form.elements.showPhoto.checked;
+    pv.hidden = !showPhoto;
+    pv.innerHTML = showPhoto && S.photo
       ? `<img src="${esc(S.photo)}" alt="">`
       : esc(initials(fd.get("nameAr")) || "؟");
   };
@@ -797,7 +799,7 @@ async function printCard(e) {
   <div class="f-logo"><img src="${logo}" alt="GEC"></div>
   <div class="f-company">شركة البيئة الخضراء</div>
   <div class="f-kind">بطاقة موظف · EMPLOYEE ID</div>
-  <div class="photo">${photo}</div>
+  ${e.showPhoto !== false ? `<div class="photo">${photo}</div>` : ""}
   <h1>${esc(e.nameAr)}</h1>
   ${e.nameEn ? `<p class="en">${esc(e.nameEn)}</p>` : ""}
   <p class="role">${esc(e.titleAr)}</p>

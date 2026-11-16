@@ -149,7 +149,7 @@ function render(card) {
     </header>
 
     <section class="person">
-      <div class="avatar"><div class="avatar-inner">${photo}</div></div>
+      ${card.showPhoto !== false ? `<div class="avatar"><div class="avatar-inner">${photo}</div></div>` : ""}
       <h1>${esc(card.nameAr)}</h1>
       ${card.nameEn ? `<p class="en">${esc(card.nameEn)}</p>` : ""}
       <p class="role">${esc(card.titleAr)}</p>
